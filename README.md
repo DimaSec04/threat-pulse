@@ -6,12 +6,6 @@ Threat Pulse is a web-based phishing detection and early warning system designed
 
 ...
 
-## Dashboard Preview
-
-<p align="center">
-  <img src="./Screenshot.png" alt="Threat Pulse Dashboard" width="900">
-</p>
-
 ## Technologies Used
 
 - Python
