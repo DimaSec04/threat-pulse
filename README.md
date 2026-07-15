@@ -17,6 +17,9 @@ The system analyzes URLs and text messages using a rule-based detection engine w
 - Dashboard with threat statistics
 - Community reporting of suspicious content
 
+## Dashboard Preview
+
+![Threat Pulse Dashboard](Screenshot.png)
 ## Technologies Used
 
 - Python
