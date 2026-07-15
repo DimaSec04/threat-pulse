@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Threat Pulse</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+  <div class="badge">
+    <h2 class="logo"> 
+      <span class="pulse-icon">
+        <svg viewBox="0 0 64 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M2 12 H14 L20 12 L24 4 L30 20 L36 8 L40 12 H62" />
+        </svg>
+      </span> 
+      Threat Pulse
+    </h2>
+  </div>
+
+  <div class="links">
+    <a href="{{ url_for('home') }}" class="active">Home</a>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    <a href="{{ url_for('login_page') }}#login">Login</a>
+    <button onclick="window.location.href=`{{ url_for('login_page') }}#signup`">
+  Sign Up
+</button>
+</div>
+</nav>
+
+<div class="container">
+
+  <div class="main-pulse">
+    <svg viewBox="0 0 200 60">
+      <path d="M5 30 H50 L70 30 L80 10 L95 50 L110 15 L125 30 H195"/>
+    </svg>
+  </div>
+
+  <p class="main-text">
+    Analyze suspicious links and messages to detect phishing threats and protect users using community intelligence.
+  </p>
+
+  <h2>How It Works</h2>
+
+  <div class="how-container">
+
+    <div class="how-card">
+      <div class="icon-box">⌕</div>
+      <h3>1. Submit Content</h3>
+      <p>Paste any suspicious link or message you have received.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="icon-box">🛡</div>
+      <h3>2. Smart Analysis</h3>
+      <p>Our system analyzes the content to detect phishing patterns and suspicious behavior.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="icon-box">✓</div>
+      <h3>3. Get Risk Results</h3>
+      <p>Receive a risk level and see if the content has been reported by other users.</p>
+    </div>
+
+  </div>
+  <div class="recent-box">
+  <h2 class="recent-title">⚠ Recent Threats Detected</h2>
+  <div id="homeRecentThreats">
+    <p style="color:#94a3b8;">Loading recent threats...</p>
+  </div>
+</div>
+  <div class="cta-box">
+    <h2>Ready to Protect Yourself?</h2>
+
+    <p>
+      Start scanning suspicious links and messages to stay safe online.
+    </p>
+
+    <div class="cta-buttons">
+      <button class="start-btn" onclick="goToDashboard()">Start Scanning Now →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function goToDashboard() {
+    window.location.href = "{{ url_for('dashboard') }}";
+}
+
+async function loadHomeRecentThreats() {
+  const container = document.getElementById("homeRecentThreats");
+
+  try {
+   const response = await fetch("/api/recent-threats?limit=3")
+    const threats = await response.json();
+
+    if (!threats || threats.length === 0) {
+      container.innerHTML = `<p style="color:#94a3b8;">No recent threats yet.</p>`;
+      return;
+    }
+
+    container.innerHTML = "";
+
+    threats.slice(0, 3).forEach(item => {
+      const riskClass = item.risk_level === "high" ? "high" :
+                        item.risk_level === "medium" ? "medium" : "low";
+
+      const riskText = item.risk_level === "high" ? "High Risk" :
+                       item.risk_level === "medium" ? "Medium Risk" : "Low Risk";
+
+      container.innerHTML += `
+        <div class="threat-row">
+          <div class="threat-info">
+            <h3>${item.content}</h3>
+          </div>
+          <span class="risk ${riskClass}">${riskText}</span>
+        </div>
+      `;
+    });
+  } catch (error) {
+    container.innerHTML = `<p style="color:#ef4444;">Failed to load recent threats.</p>`;
+  }
+}
+
+loadHomeRecentThreats();
+setInterval(loadHomeRecentThreats, 3000);
+</script>
+
+</body>
+</html>

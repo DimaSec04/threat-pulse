@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Pulse - Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav>
+  <div class="badge">
+    <h2 class="logo"> 
+      <span class="pulse-icon">
+        <svg viewBox="0 0 64 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M2 12 H14 L20 12 L24 4 L30 20 L36 8 L40 12 H62" fill="none" stroke="currentColor" stroke-width="3"/>
+        </svg>
+      </span> 
+      Threat Pulse
+    </h2>
+  </div>
+
+  <div class="links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('dashboard') }}" class="active">Dashboard</a>
+    <a href="{{ url_for('login_page') }}#login">Login</a>
+           <button onclick="window.location.href='/login#signup'">
+    Sign Up
+</button>
+</div>
+</nav>
+
+<div class="warning-overlay" id="repeatWarning" style="display:none;">
+  <div class="warning-modal">
+    <button class="close-alert" onclick="closeWarning()">×</button>
+    <h3>🚨 High Threat Warning</h3>
+    <p id="repeatWarningText"></p>
+  </div>
+  
+</div>
+
+<div class="container">
+
+  <h2>Security Dashboard</h2>
+
+  <p class="main-text">
+    Scan suspicious URLs or messages and view their risk level instantly.
+  </p>
+
+  <div class="scanner-box" id="scanner">
+    <div class="tab-buttons">
+      <button class="tab-button active" onclick="setURL()">URL</button>
+      <button class="tab-button" onclick="setMessage()">Message</button>
+    </div>
+
+    <input id="inputBox" type="text" placeholder="Paste a valid URL here... (e.g., https://example.com)" />
+    <div id="validationMessage" class="validation-message"></div>
+
+    <button class="scan-btn" onclick="scanNow()">🔍 Scan Now</button>
+  </div>
+
+  <div id="dashboardResult" style="display:none;">
+
+    <div class="scanned-box">
+      <h2 id="scannedTitle">🔗 Scanned URL</h2>
+      <div class="scanned-input" id="scannedContent">---</div>
+    </div>
+
+    <div class="result-card">
+      <div class="result-layout">
+
+        <div class="result-left">
+          <div class="score-ring" id="scoreRing">
+            <div class="score-inner">
+              <h2 id="scoreValue">0</h2>
+              <span>/ 100</span>
+            </div>
+          </div>
+
+          <div class="risk-badge" id="riskBadge">Low Risk</div>
+        </div>
+
+        <div class="result-right">
+          <h2 class="threat-title">Threat Score</h2>
+
+          <p class="threat-message" id="resultMessage">
+            Result will appear here.
+          </p>
+
+          <div class="threat-reasons" id="threatReasons" style="display:none;"></div>
+
+          <div class="threat-scale">
+            <div class="scale-labels">
+              <span>Safe</span>
+              <span>Dangerous</span>
+            </div>
+
+            <div class="threat-bar">
+              <div class="threat-fill" id="threatFill"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <h2>Statistics</h2>
+
+  <div class="stats-container">
+
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 19V5" />
+          <path d="M10 19V9" />
+          <path d="M16 19V12" />
+          <path d="M22 19H2" />
+        </svg>
+      </div>
+      <h3 id="scansCompleted">0</h3>
+      <p>Scans Completed</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon red">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3L2.8 19a1 1 0 0 0 .9 1.5h16.6a1 1 0 0 0 .9-1.5L12 3z" />
+          <path d="M12 9v4" />
+          <path d="M12 17h.01" />
+        </svg>
+      </div>
+      <h3 id="threatsBlocked">0</h3>
+      <p>Threats Blocked</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M16 19v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
+          <circle cx="9.5" cy="7" r="3" />
+          <path d="M20 19v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16.5 4.13a3 3 0 0 1 0 5.74" />
+        </svg>
+      </div>
+      <h3 id="activeUsers">0</h3>
+      <p>Active Users</p>
+    </div>
+
+  </div>
+
+  <div class="dashboard-lists">
+
+    <div class="activity-box">
+      <h2 class="box-title">Recent Threat Activity</h2>
+      <div id="recentActivityList"></div>
+    </div>
+
+    <div class="warning-list-box">
+      <h2 class="box-title">🛡️ Early Warning Alerts</h2>
+      <p class="warning-subtitle">Repeated high-risk threats detected</p>
+      <div id="earlyWarningList"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const API_BASE = "http://127.0.0.1:5000";
+
+function setURL() {
+  document.getElementById("inputBox").placeholder =
+    "Paste a valid URL here... (e.g., https://example.com)";
+
+  let buttons = document.querySelectorAll(".tab-button");
+  buttons[0].classList.add("active");
+  buttons[1].classList.remove("active");
+}
+
+function setMessage() {
+  document.getElementById("inputBox").placeholder = "Paste a message here...";
+
+  let buttons = document.querySelectorAll(".tab-button");
+  buttons[1].classList.add("active");
+  buttons[0].classList.remove("active");
+}
+
+function isValidURL(text) {
+  return text.startsWith("http://") ||
+         text.startsWith("https://") ||
+         text.startsWith("www");
+}
+
+async function scanNow() {
+
+  let input = document.getElementById("inputBox").value.trim();
+
+  let scanType =
+    (
+      input.startsWith("http://") ||
+      input.startsWith("https://") ||
+      input.startsWith("www.")
+    ) && !input.includes(" ")
+
+      ? "url"
+      : "message";
+
+  let validation = document.getElementById("validationMessage");
+
+  if (input === "") {
+      validation.style.display = "block";
+      validation.textContent = "Please enter a URL or message first.";
+      return;
+  }
+
+  let activeButton =
+  document.querySelector(".tab-button.active").textContent.toLowerCase();
+
+  if (
+      activeButton.includes("url") &&
+      !(
+        input.startsWith("http://") ||
+        input.startsWith("https://") ||
+        input.startsWith("www.")
+      )
+  ) {
+      validation.style.display = "block";
+      validation.textContent = "Please enter a valid URL";
+      return;
+  }
+
+  validation.style.display = "none";
+  validation.textContent = "";
+validation.style.display = "none";
+validation.textContent = "";
+
+  if (scanType === "url" && !isValidURL(input)) {
+    validation.style.display = "block";
+    validation.textContent = "Please enter a valid URL only.";
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/scan", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        content: input,
+        type: scanType
+      })
+    });
+
+const data = await response.json();
+const warningResponse = await fetch(`${API_BASE}/api/early-warnings`);
+const warnings = await warningResponse.json();
+
+const alreadyReported = warnings.some(
+    item => item.content === input
+);
+    if (!response.ok || data.success === false) {
+      validation.style.display = "block";
+      validation.textContent = data.message || "Scan failed. Please try again.";
+      return;
+    }
+
+    document.getElementById("dashboardResult").style.display = "block";
+    document.getElementById("scannedContent").textContent = input;
+
+    if (scanType === "message") {
+      document.getElementById("scannedTitle").textContent = "💬 Scanned Message";
+    } else {
+      document.getElementById("scannedTitle").textContent = "🔗 Scanned URL";
+    }
+    window.currentScannedInput = input;
+    renderResult({
+      score: data.score,
+      message: data.message,
+      scan_count: data.scan_count,
+      reasons: data.reasons || []
+    });
+const repeatWarning = document.getElementById("repeatWarning");
+const repeatWarningText = document.getElementById("repeatWarningText");
+
+if (alreadyReported && data.score >= 70) {
+
+    repeatWarning.style.display = "flex";
+
+    repeatWarningText.textContent =
+      `This threat has been reported multiple times and is classified as HIGH RISK.`;
+
+} else {
+
+    repeatWarning.style.display = "none";
+}
+
+    await loadDashboardStats();
+    await loadRecentActivity();
+    await loadEarlyWarnings();
+    
+ 
+    document.getElementById("dashboardResult").scrollIntoView({
+      behavior: "smooth"
+    });
+
+  } catch (error) {
+    validation.style.display = "block";
+    validation.textContent = "Cannot connect to server.";
+  }
+}
+
+function renderResult(data) {
+  const score = data.score ?? 0;
+
+  const scoreValue = document.getElementById("scoreValue");
+  const riskBadge = document.getElementById("riskBadge");
+  const resultMessage = document.getElementById("resultMessage");
+  const scoreRing = document.getElementById("scoreRing");
+  const threatFill = document.getElementById("threatFill");
+
+  scoreValue.textContent = score;
+  resultMessage.textContent = data.message || "Scan completed.";
+
+  const threatReasons = document.getElementById("threatReasons");
+  const reasons = data.reasons || [];
+
+  if (reasons.length > 0) {
+    threatReasons.style.display = "block";
+    threatReasons.innerHTML = `<h4>Top Reasons</h4>`;
+
+    reasons.slice(0, 3).forEach((reason, index) => {
+      threatReasons.innerHTML += `
+        <div class="reason-item">
+          <span class="reason-number">${index + 1}</span>
+          <span>${reason}</span>
+        </div>
+      `;
+    });
+  } else {
+    threatReasons.style.display = "none";
+    threatReasons.innerHTML = "";
+  }
+
+  let color = "";
+  let badgeText = "";
+
+  if (score >= 0 && score <= 29) {
+    color = "#22c55e"; 
+    badgeText = "Low Risk";
+  } 
+  else if (score >= 30 && score <= 69) {
+    color = "#facc15";
+    badgeText = "Medium Risk";
+  } 
+  else {
+    color = "#ef4444";
+    badgeText = "High Risk";
+  }
+
+  riskBadge.textContent = badgeText;
+  riskBadge.style.color = color;
+  riskBadge.style.borderColor = color;
+  riskBadge.style.backgroundColor = color + "20";
+
+  scoreRing.style.background =
+    `conic-gradient(${color} ${score * 3.6}deg, rgba(255,255,255,0.08) 0deg)`;
+
+  threatFill.style.width = score + "%";
+  threatFill.style.backgroundColor = color;
+
+  const repeatWarning = document.getElementById("repeatWarning");
+  const input = window.currentScannedInput;
+
+  window.reportedThreats = window.reportedThreats || {};
+  const repeatWarningText = document.getElementById("repeatWarningText");
+  window.highRiskCount = window.highRiskCount || 0;
+
+  if (score >= 70) {
+
+    if (!window.reportedThreats[input]) {
+        window.reportedThreats[input] = 1;
+    } else {
+        window.reportedThreats[input]++;
+    }
+}
+
+if (window.reportedThreats[input] >= 2) {
+
+    repeatWarning.style.display = "flex";
+
+    repeatWarningText.textContent =
+      `This threat has been reported multiple times and is classified as HIGH RISK.`;
+
+} else {
+
+    repeatWarning.style.display = "none";
+}
+}
+
+function closeWarning() {
+  document.getElementById("repeatWarning").style.display = "none";
+}
+
+function getRiskText(risk) {
+  if (risk === "high") return "High";
+  if (risk === "medium") return "Medium";
+  return "Low";
+}
+
+async function loadDashboardStats() {
+  try {
+    const response = await fetch(`${API_BASE}/api/dashboard-stats`);
+    const stats = await response.json();
+
+    document.getElementById("scansCompleted").textContent = stats.scans_completed ?? 0;
+    document.getElementById("threatsBlocked").textContent = stats.threats_blocked ?? 0;
+    document.getElementById("activeUsers").textContent = stats.active_users ?? 0;
+
+  } catch (error) {
+    document.getElementById("scansCompleted").textContent = "0";
+    document.getElementById("threatsBlocked").textContent = "0";
+    document.getElementById("activeUsers").textContent = "0";
+  }
+}
+
+async function loadRecentActivity() {
+  let list = document.getElementById("recentActivityList");
+
+  try {
+    const response = await fetch(`${API_BASE}/api/recent-activity?limit=5`);
+    const activities = await response.json();
+    window.highRiskCount = window.highRiskCount || 0;
+
+    if (!activities || activities.length === 0) {
+      list.innerHTML = `<p style="color:#94a3b8;">No recent activity yet.</p>`;
+      return;
+    }
+
+    list.innerHTML = "";
+
+    activities.slice(0, 5).forEach(item => {
+      let risk = item.risk_level || "low";
+
+      list.innerHTML += `
+        <div class="activity-row">
+          <div class="activity-top">
+            <div>
+              <span class="activity-type">${item.type === "message" ? "Message" : "URL"}</span>
+              <p class="activity-content">${item.content}</p>
+              <div class="activity-user">${item.username || "Anonymous"}</div>
+            </div>
+
+            <span class="activity-risk ${risk}">
+              ${getRiskText(risk)}
+            </span>
+          </div>
+
+          <div class="activity-time">${item.time_ago || ""}</div>
+        </div>
+      `;
+    });
+
+  } catch (error) {
+    list.innerHTML = `<p style="color:#ef4444;">Failed to load recent activity.</p>`;
+  }
+}
+
+async function loadEarlyWarnings() {
+  let list = document.getElementById("earlyWarningList");
+
+  try {
+    const response = await fetch(`${API_BASE}/api/early-warnings?limit=3`);
+    const warnings = await response.json();
+
+    if (!warnings || warnings.length === 0) {
+      list.innerHTML = `<p style="color:#94a3b8;">No warning alerts yet.</p>`;
+      return;
+    }
+
+    list.innerHTML = "";
+
+   warnings.slice(0, 3).forEach(item => {
+      list.innerHTML += `
+        <div class="warning-item">
+          <div>
+            <span class="activity-type">${item.type === "message" ? "Message" : "URL"}</span>
+            <h3>${item.content}</h3>
+            <p>${item.total_reports} total reports</p>
+          </div>
+
+          <span class="warning-risk">High</span>
+        </div>
+      `;
+    });
+
+  } catch (error) {
+    list.innerHTML = `<p style="color:#ef4444;">Failed to load warning alerts.</p>`;
+  }
+}
+
+document.getElementById("inputBox").addEventListener("input", function () {
+  let validation = document.getElementById("validationMessage");
+  validation.style.display = "none";
+  validation.textContent = "";
+});
+
+loadDashboardStats();
+loadRecentActivity();
+loadEarlyWarnings();
+</script>
+
+</body>
+</html>
