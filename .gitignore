@@ -1,0 +1,6 @@
+*.db
+*.db-shm
+*.db-wal
+*.sqbpro
+__pycache__/
+*.pyc
