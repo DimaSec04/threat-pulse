@@ -80,7 +80,7 @@ http://127.0.0.1:5000
 ## Dashboard Preview
 
 <p align="center">
-  <img src="./Screenshot.png" alt="Threat Pulse Dashboard" width="900">
+  <img src="Screenshot.png" alt="Threat Pulse Dashboard" width="900">
 </p>
 
 ## Author
