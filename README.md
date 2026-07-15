@@ -78,8 +78,11 @@ http://127.0.0.1:5000
 - Provides an easy-to-use dashboard for monitoring scans and threats.
   
 ## Dashboard Preview
+
 <p align="center">
-  <img src="Screenshot.png" alt="Threat Pulse Dashboard" width="900">
-</p>## Author
+  <img src="./Screenshot.png" alt="Threat Pulse Dashboard" width="900">
+</p>
+
+## Author
 
 **Dima**
