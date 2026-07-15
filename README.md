@@ -73,7 +73,11 @@ http://127.0.0.1:5000
 - Detects suspicious keywords commonly used in phishing attacks.
 - Classifies threats into Safe, Medium, and High risk.
 - Provides an easy-to-use dashboard for monitoring scans and threats.
+  
+## Dashboard Preview
 
-## Author
+<p align="center">
+  <img src="Screenshot.png" alt="Threat Pulse Dashboard" width="900">
+</p>## Author
 
 **Dima**
