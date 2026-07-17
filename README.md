@@ -1,30 +1,39 @@
 # 🛡️ Threat Pulse
 
-A lightweight web-based phishing detection platform that analyzes suspicious URLs and messages using rule-based detection techniques. The system classifies threats into different risk levels and provides an interactive dashboard for monitoring security events.
+A lightweight web-based phishing and scam detection platform developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
+
+Threat Pulse analyzes suspicious URLs and text messages using rule-based detection techniques to identify phishing attempts, calculate a risk score, classify threats, and present the results through an interactive dashboard.
 
 ---
 
 # 📖 Overview
 
-Threat Pulse is a cybersecurity project developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
+Threat Pulse was developed as a cybersecurity project to simulate an intelligent phishing detection system.
 
-The application helps users detect phishing attempts by analyzing URLs and text messages for common phishing indicators such as suspicious keywords, fake domains, shortened links, insecure protocols, and social engineering patterns.
+The platform scans URLs and messages for common phishing indicators such as:
 
-After each scan, the system calculates a risk score and classifies the result as **Safe**, **Medium Risk**, or **High Risk**.
+- Suspicious keywords
+- Fake domains
+- URL shorteners
+- Insecure protocols (HTTP)
+- Social engineering phrases
+- Suspicious URL structures
+
+After the analysis, the system calculates a risk score and classifies each scan as **Safe**, **Medium Risk**, or **High Risk**.
 
 ---
 
 # ✨ Features
 
-- 🔍 Analyze suspicious URLs
-- 💬 Analyze suspicious text messages
-- 🛡️ Rule-based phishing detection
-- 📊 Risk score calculation
-- 🚨 Threat classification
-- 📈 Interactive security dashboard
-- 📜 Recent scan history
-- 💾 SQLite database
-- ⚡ Fast real-time analysis
+- 🔍 URL Analysis
+- 💬 Message Analysis
+- 🛡️ Rule-Based Phishing Detection
+- 📊 Risk Score Calculation
+- 🚨 Threat Classification
+- 📈 Interactive Dashboard
+- 📝 Recent Scan History
+- 💾 SQLite Database
+- ⚡ Fast Real-Time Analysis
 
 ---
 
@@ -42,9 +51,9 @@ After each scan, the system calculates a risk score and classifies the result as
 
 ---
 
-## Analysis Result
+## Second Analysis
 
-![Analysis Result](images/Second-analysis.png)
+![Second Analysis](images/Second-analysis.png)
 
 ---
 
@@ -53,25 +62,20 @@ After each scan, the system calculates a risk score and classifies the result as
 ```text
 Threat-Pulse/
 │
-├── app.py
-├── analyzer.py
-├── database.py
-├── requirements.txt
-├── README.md
-│
-├── templates/
-│   ├── dashboard.html
-│   ├── login.html
-│   └── register.html
-│
+├── analysis/
 ├── static/
-│   ├── style.css
-│   └── script.js
+├── templates/
+├── images/
+│   ├── dashboard-home.png
+│   ├── threat-analysis.png
+│   └── Second-analysis.png
 │
-└── images/
-    ├── dashboard-home.png
-    ├── threat-analysis.png
-    └── Second-analysis.png
+├── app.py
+├── auth.py
+├── database.py
+├── analyzer.py
+├── README.md
+├── requirements.txt
 ```
 
 ---
@@ -88,9 +92,9 @@ Threat-Pulse/
 
 ---
 
-# 🔍 Detection Method
+# 🔍 Detection Logic
 
-Threat Pulse uses a rule-based detection engine that evaluates URLs and messages based on multiple phishing indicators.
+Threat Pulse uses a rule-based detection engine to identify phishing attempts by analyzing both URLs and messages.
 
 ### URL Indicators
 
@@ -109,17 +113,17 @@ Threat Pulse uses a rule-based detection engine that evaluates URLs and messages
 - Verification requests
 - Password requests
 - Banking keywords
-- Account suspension messages
 - Prize and reward scams
+- Social engineering phrases
 
-Each detected indicator increases the overall risk score.
+Each detected indicator contributes to the final phishing score.
 
 ---
 
 # 🚦 Risk Levels
 
 | Score | Risk Level |
-|-------|------------|
+|-------:|------------|
 | 0 – 29 | 🟢 Safe |
 | 30 – 59 | 🟡 Medium Risk |
 | 60+ | 🔴 High Risk |
@@ -131,13 +135,13 @@ Each detected indicator increases the overall risk score.
 Clone the repository
 
 ```bash
-git clone https://github.com/DimaSec04/Threat-Pulse.git
+git clone https://github.com/DimaSec04/threat-pulse.git
 ```
 
-Move into the project folder
+Move into the project directory
 
 ```bash
-cd Threat-Pulse
+cd threat-pulse
 ```
 
 Install dependencies
@@ -162,13 +166,13 @@ http://127.0.0.1:5000
 
 # 🎯 Future Improvements
 
-- Machine Learning detection
-- VirusTotal API integration
-- Email phishing detection
-- PDF report generation
-- User authentication improvements
-- Threat intelligence feeds
-- Advanced dashboard analytics
+- Machine Learning Detection
+- VirusTotal API Integration
+- Email Phishing Detection
+- PDF Report Generation
+- Threat Intelligence Integration
+- User Authentication Improvements
+- Dashboard Analytics
 
 ---
 
