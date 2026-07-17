@@ -1,66 +1,59 @@
 # 🛡️ Threat Pulse
 
-A lightweight web-based phishing and scam detection platform developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
+Threat Pulse is a Flask-based cybersecurity web application designed to detect phishing URLs and suspicious messages using a rule-based detection engine.
 
-Threat Pulse analyzes suspicious URLs and text messages using rule-based detection techniques to identify phishing attempts, calculate a risk score, classify threats, and present the results through an interactive dashboard.
+The system analyzes URLs and text, assigns a risk score, classifies threats into different risk levels, stores scan history, and provides an interactive dashboard for monitoring security events.
 
 ---
 
-# 📖 Overview
+# 🚀 Features
 
-Threat Pulse was developed as a cybersecurity project to simulate an intelligent phishing detection system.
+- 🔍 Analyze URLs and messages
+- 🛡️ Rule-based phishing detection
+- 📊 Risk scoring engine
+- 🚨 Threat classification (Safe / Medium / High)
+- 📈 Interactive dashboard
+- 📝 Scan history
+- 💾 SQLite database
+- ⚡ Fast real-time analysis
+- 🚨 Early Warning System for repeated threats
+- 🔄 Automatic detection of repeated malicious URLs and messages
 
-The platform scans URLs and messages for common phishing indicators such as:
+---
 
-- Suspicious keywords
-- Fake domains
+# 🧠 Detection Rules
+
+Threat Pulse detects suspicious activity using several indicators, including:
+
+- Suspicious phishing keywords
+- Fake login pages
 - URL shorteners
-- Insecure protocols (HTTP)
+- HTTP instead of HTTPS
+- IP-based URLs
+- Long URLs
+- Multiple subdomains
+- Special characters
+- Fake domains
 - Social engineering phrases
-- Suspicious URL structures
 
-After the analysis, the system calculates a risk score and classifies each scan as **Safe**, **Medium Risk**, or **High Risk**.
-
----
-
-# ✨ Features
-
-- 🔍 URL Analysis
-- 💬 Message Analysis
-- 🛡️ Rule-Based Phishing Detection
-- 📊 Risk Score Calculation
-- 🚨 Threat Classification
-- 📈 Interactive Dashboard
-- 📝 Recent Scan History
-- 💾 SQLite Database
-- ⚡ Fast Real-Time Analysis
+Each indicator contributes to a risk score.
 
 ---
 
-# 🖼️ Screenshots
+# 🚨 Early Warning System
 
-## Dashboard
+Threat Pulse continuously monitors previously scanned URLs and messages.
 
-![Dashboard](images/dashboard-home.png)
+If the same malicious URL or suspicious message is detected multiple times, the system automatically generates an **Early Warning Alert**, indicating that the threat is becoming more widespread.
 
----
-
-## Threat Analysis
-
-![Threat Analysis](images/threat-analysis.png)
+This feature helps identify repeated phishing campaigns and improves threat awareness.
 
 ---
 
-## Second Analysis
-
-![Second Analysis](images/Second-analysis.png)
-
----
-
-# 📂 Project Structure
+# 🏗️ Project Structure
 
 ```text
-Threat-Pulse/
+threat-pulse/
 │
 ├── analysis/
 ├── static/
@@ -73,60 +66,22 @@ Threat-Pulse/
 ├── app.py
 ├── auth.py
 ├── database.py
-├── analyzer.py
 ├── README.md
-├── requirements.txt
+└── requirements.txt
 ```
 
 ---
 
-# ⚙️ Technologies Used
+# 💻 Technologies
 
 - Python
 - Flask
 - SQLite
-- HTML5
-- CSS3
+- HTML
+- CSS
 - JavaScript
-- Regular Expressions (Regex)
-
----
-
-# 🔍 Detection Logic
-
-Threat Pulse uses a rule-based detection engine to identify phishing attempts by analyzing both URLs and messages.
-
-### URL Indicators
-
-- HTTP instead of HTTPS
-- Suspicious keywords
-- URL shorteners
-- Fake domains
-- Long URLs
-- Multiple subdomains
-- Special characters
-- Suspicious symbols
-
-### Message Indicators
-
-- Urgent language
-- Verification requests
-- Password requests
-- Banking keywords
-- Prize and reward scams
-- Social engineering phrases
-
-Each detected indicator contributes to the final phishing score.
-
----
-
-# 🚦 Risk Levels
-
-| Score | Risk Level |
-|-------:|------------|
-| 0 – 29 | 🟢 Safe |
-| 30 – 59 | 🟡 Medium Risk |
-| 60+ | 🔴 High Risk |
+- Regex
+- Rule-Based Detection
 
 ---
 
@@ -156,23 +111,50 @@ Run the application
 python app.py
 ```
 
-Open your browser
+---
 
-```
-http://127.0.0.1:5000
-```
+# 📊 Detection Process
+
+1. User submits a URL or message.
+2. The detection engine analyzes the input.
+3. Suspicious indicators are matched.
+4. A risk score is calculated.
+5. The threat is classified as Safe, Medium, or High.
+6. The scan is stored in the database.
+7. If the same malicious content is detected repeatedly, an Early Warning Alert is generated.
 
 ---
 
-# 🎯 Future Improvements
+# 📸 Screenshots
+
+## Dashboard
+
+![Dashboard](images/dashboard-home.png)
+
+---
+
+## Threat Analysis
+
+![Threat Analysis](images/threat-analysis.png)
+
+---
+
+## Second Analysis
+
+![Second Analysis](images/Second-analysis.png)
+
+---
+
+# 🔮 Future Improvements
 
 - Machine Learning Detection
 - VirusTotal API Integration
 - Email Phishing Detection
-- PDF Report Generation
+- User Authentication Enhancements
+- Real-time Notifications
 - Threat Intelligence Integration
-- User Authentication Improvements
-- Dashboard Analytics
+- Advanced Reporting
+- PDF Report Export
 
 ---
 
@@ -182,12 +164,16 @@ http://127.0.0.1:5000
 
 Cybersecurity Student
 
-GitHub:
+Interested in:
 
-https://github.com/DimaSec04
+- SOC Analysis
+- Blue Team
+- Threat Detection
+- Incident Response
+- Digital Forensics
 
 ---
 
-# 📄 License
+# ⭐ Project Purpose
 
-This project was developed for educational and learning purposes.
+This project was developed as a graduation project to simulate a lightweight Security Operations Center (SOC) platform capable of detecting phishing attempts, analyzing suspicious URLs and messages, classifying threats, and providing early warning alerts for repeated malicious activities.
