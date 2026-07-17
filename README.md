@@ -26,7 +26,7 @@ The system analyzes suspicious URLs and messages using a rule-based detection en
 
 ### Dashboard
 
-![Dashboard](images/dashboard-home1.png)
+![Dashboard](images/dashboard-home.png)
 
 ---
 
@@ -38,9 +38,7 @@ The system analyzes suspicious URLs and messages using a rule-based detection en
 
 ### Analysis Result
 
-![Analysis Result](images/second%20analysis.png)
-
----
+![Analysis Result](images/Second-analysis.png)
 
 ## 📂 Project Structure
 
