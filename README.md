@@ -1,40 +1,50 @@
-# Threat Pulse
+# 🛡️ Threat Pulse
 
-Threat Pulse is a community-driven cybersecurity platform developed using **Python**, **Flask**, **HTML**, **CSS**, and **SQLite**. The system helps users detect phishing attempts, suspicious URLs, and scam messages using a rule-based analysis engine.
+## Overview
 
-It simulates the workflow of a lightweight Security Operations Center (SOC) by analyzing submitted content, assigning a risk level, and displaying security statistics through an interactive dashboard.
+Threat Pulse is a community-driven phishing and scam detection platform developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
+
+The system analyzes suspicious URLs and messages using a rule-based detection engine to identify phishing attempts, calculate a risk score, classify threats, and display the results through an interactive dashboard.
 
 ---
 
-## Features
+## ✨ Features
 
 - Analyze suspicious URLs
-- Analyze suspicious text messages
+- Analyze suspicious messages
 - Rule-based phishing detection
 - Risk classification (Safe / Medium / High)
-- Suspicious keyword detection
-- URL pattern analysis
-- Dashboard with security statistics
+- Dashboard statistics
+- Recent threat activity
 - Scan history
-- Modern responsive user interface
+- SQLite database integration
+- Responsive web interface
 
 ---
 
-## Technologies
+## 🖥️ Screenshots
 
-- Python
-- Flask
-- SQLite
-- HTML5
-- CSS3
-- JavaScript
-- Regular Expressions (Regex)
+### Dashboard
+
+![Dashboard](images/dashboard-home1.png)
 
 ---
 
-## Project Structure
+### Threat Analysis
 
-```
+![Threat Analysis](images/threat-analysis.png)
+
+---
+
+### Analysis Result
+
+![Analysis Result](images/second%20analysis.png)
+
+---
+
+## 📂 Project Structure
+
+```text
 Threat-Pulse/
 │
 ├── app.py
@@ -46,7 +56,7 @@ Threat-Pulse/
 ├── templates/
 │   ├── dashboard.html
 │   ├── login.html
-│   └── register.html
+│   ├── register.html
 │
 ├── static/
 │   ├── style.css
@@ -55,58 +65,59 @@ Threat-Pulse/
 └── images/
     ├── dashboard-home1.png
     ├── threat-analysis.png
-    └── Second analysis.png
+    └── second analysis.png
 ```
 
 ---
 
-## Screenshots
+## 🛠️ Technologies
 
-### Dashboard Home
-
-![Dashboard Home](images/dashboard-home1.png)
-
----
-
-### Threat Analysis
-
-![Threat Analysis](images/threat-analysis.png)
+- Python
+- Flask
+- SQLite
+- HTML5
+- CSS3
+- JavaScript
+- Regular Expressions (Regex)
 
 ---
 
-### Second Analysis
+## 🔍 Detection Logic
 
-![Second Analysis](images/Second%20analysis.png)
+Threat Pulse analyzes URLs and messages by checking multiple phishing indicators, including:
 
----
+- Suspicious keywords
+- Fake domains
+- URL shorteners
+- HTTP instead of HTTPS
+- Long URLs
+- Multiple subdomains
+- Special characters
+- Social engineering phrases
 
-## Detection Process
+Each indicator contributes to a final score that determines the overall risk level.
 
-1. User submits a URL or message.
-2. Threat Pulse analyzes the input using rule-based detection.
-3. Suspicious keywords and URL patterns are identified.
-4. A risk score is calculated.
-5. The system classifies the result as:
-   - Safe
-   - Medium Risk
-   - High Risk
-6. The dashboard displays the analysis results and security statistics.
+### Risk Levels
 
----
-
-## Future Improvements
-
-- Machine Learning-based phishing detection
-- Email attachment analysis
-- VirusTotal API integration
-- User reporting system
-- Real-time threat intelligence feeds
-- PDF report generation
-- User authentication improvements
+- 🟢 Safe
+- 🟡 Medium Risk
+- 🔴 High Risk
 
 ---
 
-## Run the Project
+## 🚀 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/DimaSec04/Threat-Pulse.git
+```
+
+Move to the project directory:
+
+```bash
+cd Threat-Pulse
+```
 
 Install the required packages:
 
@@ -128,14 +139,27 @@ http://127.0.0.1:5000
 
 ---
 
-## Author
+## 🔮 Future Improvements
+
+- Machine Learning detection
+- VirusTotal API integration
+- Email phishing analysis
+- PDF report generation
+- Real-time threat intelligence
+- User authentication improvements
+
+---
+
+## 👩‍💻 Author
 
 **Dima Raaed**
 
 Cybersecurity Student
 
+GitHub: https://github.com/DimaSec04
+
 ---
 
-## License
+## 📄 License
 
 This project was developed for educational purposes.
