@@ -1,46 +1,54 @@
 # 🛡️ Threat Pulse
 
-## Overview
-
-Threat Pulse is a community-driven phishing and scam detection platform developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
-
-The system analyzes suspicious URLs and messages using a rule-based detection engine to identify phishing attempts, calculate a risk score, classify threats, and display the results through an interactive dashboard.
+A lightweight web-based phishing detection platform that analyzes suspicious URLs and messages using rule-based detection techniques. The system classifies threats into different risk levels and provides an interactive dashboard for monitoring security events.
 
 ---
 
-## ✨ Features
+# 📖 Overview
 
-- Analyze suspicious URLs
-- Analyze suspicious messages
-- Rule-based phishing detection
-- Risk classification (Safe / Medium / High)
-- Dashboard statistics
-- Recent threat activity
-- Scan history
-- SQLite database integration
-- Responsive web interface
+Threat Pulse is a cybersecurity project developed using **Python**, **Flask**, **SQLite**, **HTML**, **CSS**, and **JavaScript**.
+
+The application helps users detect phishing attempts by analyzing URLs and text messages for common phishing indicators such as suspicious keywords, fake domains, shortened links, insecure protocols, and social engineering patterns.
+
+After each scan, the system calculates a risk score and classifies the result as **Safe**, **Medium Risk**, or **High Risk**.
 
 ---
 
-## 🖥️ Screenshots
+# ✨ Features
 
-### Dashboard
+- 🔍 Analyze suspicious URLs
+- 💬 Analyze suspicious text messages
+- 🛡️ Rule-based phishing detection
+- 📊 Risk score calculation
+- 🚨 Threat classification
+- 📈 Interactive security dashboard
+- 📜 Recent scan history
+- 💾 SQLite database
+- ⚡ Fast real-time analysis
+
+---
+
+# 🖼️ Screenshots
+
+## Dashboard
 
 ![Dashboard](images/dashboard-home.png)
 
 ---
 
-### Threat Analysis
+## Threat Analysis
 
 ![Threat Analysis](images/threat-analysis.png)
 
 ---
 
-### Analysis Result
+## Analysis Result
 
 ![Analysis Result](images/Second-analysis.png)
 
-## 📂 Project Structure
+---
+
+# 📂 Project Structure
 
 ```text
 Threat-Pulse/
@@ -54,21 +62,21 @@ Threat-Pulse/
 ├── templates/
 │   ├── dashboard.html
 │   ├── login.html
-│   ├── register.html
+│   └── register.html
 │
 ├── static/
 │   ├── style.css
 │   └── script.js
 │
 └── images/
-    ├── dashboard-home1.png
+    ├── dashboard-home.png
     ├── threat-analysis.png
-    └── second analysis.png
+    └── Second-analysis.png
 ```
 
 ---
 
-## 🛠️ Technologies
+# ⚙️ Technologies Used
 
 - Python
 - Flask
@@ -80,56 +88,71 @@ Threat-Pulse/
 
 ---
 
-## 🔍 Detection Logic
+# 🔍 Detection Method
 
-Threat Pulse analyzes URLs and messages by checking multiple phishing indicators, including:
+Threat Pulse uses a rule-based detection engine that evaluates URLs and messages based on multiple phishing indicators.
 
-- Suspicious keywords
-- Fake domains
-- URL shorteners
+### URL Indicators
+
 - HTTP instead of HTTPS
+- Suspicious keywords
+- URL shorteners
+- Fake domains
 - Long URLs
 - Multiple subdomains
 - Special characters
-- Social engineering phrases
+- Suspicious symbols
 
-Each indicator contributes to a final score that determines the overall risk level.
+### Message Indicators
 
-### Risk Levels
+- Urgent language
+- Verification requests
+- Password requests
+- Banking keywords
+- Account suspension messages
+- Prize and reward scams
 
-- 🟢 Safe
-- 🟡 Medium Risk
-- 🔴 High Risk
+Each detected indicator increases the overall risk score.
 
 ---
 
-## 🚀 Installation
+# 🚦 Risk Levels
 
-Clone the repository:
+| Score | Risk Level |
+|-------|------------|
+| 0 – 29 | 🟢 Safe |
+| 30 – 59 | 🟡 Medium Risk |
+| 60+ | 🔴 High Risk |
+
+---
+
+# 🚀 Installation
+
+Clone the repository
 
 ```bash
 git clone https://github.com/DimaSec04/Threat-Pulse.git
 ```
 
-Move to the project directory:
+Move into the project folder
 
 ```bash
 cd Threat-Pulse
 ```
 
-Install the required packages:
+Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run the application:
+Run the application
 
 ```bash
 python app.py
 ```
 
-Open your browser:
+Open your browser
 
 ```
 http://127.0.0.1:5000
@@ -137,27 +160,30 @@ http://127.0.0.1:5000
 
 ---
 
-## 🔮 Future Improvements
+# 🎯 Future Improvements
 
 - Machine Learning detection
 - VirusTotal API integration
-- Email phishing analysis
+- Email phishing detection
 - PDF report generation
-- Real-time threat intelligence
 - User authentication improvements
+- Threat intelligence feeds
+- Advanced dashboard analytics
 
 ---
 
-## 👩‍💻 Author
+# 👩‍💻 Author
 
 **Dima Raaed**
 
 Cybersecurity Student
 
-GitHub: https://github.com/DimaSec04
+GitHub:
+
+https://github.com/DimaSec04
 
 ---
 
-## 📄 License
+# 📄 License
 
-This project was developed for educational purposes.
+This project was developed for educational and learning purposes.
